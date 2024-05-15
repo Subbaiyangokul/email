@@ -12,6 +12,9 @@ mongoose.connect("mongodb://127.0.0.1:27017/Login");
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
+     name : String,
+    email : String,
+    mobilenumber : Number,
   
 });
 
@@ -34,7 +37,11 @@ app.post("/login", (req, res) => {
         .catch(err => res.status(500).json({ error: err.message }));
 });
 
-
+app.post("/employees", (req, res) => {
+    UserModel.create(req.body)
+    .then( users => res.json(users))
+    .catch(err => res.json(err))
+});
 
 app.get("/", (req, res) => {
     UserModel.find({})
